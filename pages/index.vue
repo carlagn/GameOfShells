@@ -38,16 +38,19 @@
 export default {
   data() {
     return {
+      // Long animation is set for the transitions between the cups at the left & right
       longAnimation: false,
+      // Ballposition defines the initial possition of the ball + remaining necessary classes
       ballPosition: "ball-0",
       startMessage: "Start game",
+      // Person's score during a winning-streak
       score: 0,
+      // State of each container
       boxes: [
         {
           id: 0,
           pos: 0,
-          ball: null,
-          swappingPlace: []
+          ball: null
         },
         {
           id: 1,
@@ -60,12 +63,13 @@ export default {
           ball: null
         }
       ],
-      shuffleInterval: null,
+      // Initial position of the ball at the beginning of a game
       ballInit: 0,
       veredict: "",
       gameRunning: false,
       accumulatedScore: 0,
       firstClick: false,
+      // Only possible swapping orders.
       swapping: [
         [0, 1],
         [1, 2],
@@ -86,6 +90,7 @@ export default {
           this.accumulatedScore += 1
           this.score += 1
         } else {
+          // Score reseted for difficulty reset, as it defines the speed of the cups
           this.score = 0
           this.veredict = "Wrong..."
         }
@@ -97,6 +102,7 @@ export default {
       }
     },
     start() {
+      // Position of the ball in the beginning of the game set at random
       let ballPo = Math.floor(Math.random() * Math.floor(3));
       this.ballInit = ballPo
       this.ballPosition = `ball-${ballPo}`
@@ -110,6 +116,8 @@ export default {
       }, 800)
     },
     boxClass(idx) {
+      // First class element defines the position of each cup (position 0, 1, 2)
+      // Second class element defines z-index (optional)
       return this.longAnimation
         ? `box-${this.boxes[idx].pos} z-${this.boxes[idx].pos} long-animation`
         : `box-${this.boxes[idx].pos} z-${this.boxes[idx].pos}`
@@ -117,6 +125,8 @@ export default {
     shuffle(ballPo) {
       this.gameRunning = true
       for (var i = 0; i < 8000; i++) {
+        // Difficulty increases as time passes and as score increaves.
+        // Speed tops at 500ms
         if (i < 3000) {
           if (1300 - 100 * this.score <= 500) {
             i += 500
@@ -136,7 +146,8 @@ export default {
             i += 800 - 100 * this.score
           }
         }
-        this.shuffleInterval = setTimeout(() => {
+        setTimeout(() => {
+          // Swapping order selected at random each time cups are switched.
           const swapingOrder = this.swapping[Math.floor(Math.random()*this.swapping.length)];
           if (swapingOrder === this.swapping[2]) {
             this.longAnimation = true
@@ -150,6 +161,7 @@ export default {
         }, i)
       }
       setTimeout(() => {
+        // At the end of the game.
         this.startMessage = "Start again"
         this.veredict = "Where is the Ball?"
         this.firstClick = false

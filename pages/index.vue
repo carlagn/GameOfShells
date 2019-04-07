@@ -64,7 +64,6 @@ export default {
       ballInit: 0,
       veredict: "",
       gameRunning: false,
-      lost: false,
       accumulatedScore: 0,
       firstClick: false,
       swapping: [

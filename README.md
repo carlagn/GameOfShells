@@ -17,4 +17,4 @@ $ npm install
 $ npm run dev
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+Author: Carla Gonçalves, 07/04/2019

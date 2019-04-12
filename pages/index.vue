@@ -104,16 +104,22 @@ export default {
     start() {
       // Position of the ball in the beginning of the game set at random
       let ballPo = Math.floor(Math.random() * Math.floor(3));
-      this.ballInit = ballPo
-      this.ballPosition = `ball-${ballPo}`
-      this.veredict = ""
+      // Reset positions.
+      this.boxes[0].pos = 0
+      this.boxes[1].pos = 1
+      this.boxes[2].pos = 2
       setTimeout(() => {
-        this.ballPosition = `ball-${ballPo} fall`
+        this.ballInit = ballPo
+        this.ballPosition = `ball-${ballPo}`
+        this.veredict = ""
+        setTimeout(() => {
+          this.ballPosition = `ball-${ballPo} fall`
+        }, 300)
+        setTimeout(() => {
+          this.shuffle(ballPo)
+          this.ballPosition = `ball-${ballPo} hidden fall`
+        }, 800)
       }, 300)
-      setTimeout(() => {
-        this.shuffle(ballPo)
-        this.ballPosition = `ball-${ballPo} hidden fall`
-      }, 800)
     },
     boxClass(idx) {
       // First class element defines the position of each cup (position 0, 1, 2)

@@ -2,7 +2,10 @@ import pkg from './package'
 
 export default {
   mode: 'universal',
-
+  target: 'static',
+  router: {
+    base: '/GameOfShells/'
+  },
   /*
   ** Headers of the page
   */
